@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miko Hardi Putra - Portfolio</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons via CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS Styles -->
+    <style>
+        body {
+            background-color: #050505;
+            color: #d4d4d4; /* neutral-300 */
+        }
+        ::selection {
+            background-color: #ff6b4a;
+            color: white;
+        }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-sans { font-family: 'Inter', sans-serif; }
+        
+        .mask-radial {
+            mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 80%);
+            -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 80%);
+        }
+        
+        .text-glow {
+            text-shadow: 0 0 20px rgba(255, 107, 74, 0.4);
+        }
+        
+        .box-glow:hover {
+            box-shadow: 0 0 30px rgba(255, 107, 74, 0.15);
+        }
+
+        /* Initial state for scroll animations */
+        .scroll-fade {
+            opacity: 0;
+            transform: translateY(3rem); /* translate-y-12 */
+            transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .scroll-fade.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="font-sans overflow-x-hidden antialiased">
+
+    <!-- --- Navigation --- -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent py-6">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+            <div class="flex items-center gap-8">
+                <!-- LOGO SECTION -->
+                <a href="#home" class="flex items-center gap-2 text-white text-xl font-bold tracking-tighter group">
+                    <!-- Opsi 1: Logo Icon bawaan (Bisa dihapus jika Anda punya file logo sendiri) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#ff6b4a] group-hover:rotate-12 transition-transform">
+                        <polygon points="12 2 2 22 12 17 22 22 12 2"></polygon>
+                    </svg>
+                    
+                    <!-- Opsi 2: Logo Gambar (Hapus tanda komentar HTML di bawah ini dan masukkan link gambar/file logo Anda) -->
+                    <!-- <img src="link-logo-anda.png" alt="Logo Miko" class="w-8 h-8 object-contain" /> -->
+                    
+                    <span>Miko<span class="text-[#ff6b4a]">.</span></span>
+                </a>
+                
+                <a href="mailto:miko.hardi07@gmail.com" class="hidden md:flex items-center gap-2 text-xs text-neutral-400 hover:text-white transition-colors">
+                    <i data-lucide="mail" class="w-3.5 h-3.5"></i> miko.hardi07@gmail.com
+                </a>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="#about" class="hover:text-white transition-colors">About</a>
+                <a href="#experience" class="hover:text-white transition-colors">Experience</a>
+                <a href="#skills" class="hover:text-white transition-colors">Skills</a>
+                <button class="text-white hover:text-[#ff6b4a] transition-colors">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+            
+            <button id="mobile-menu-btn" class="md:hidden text-white">
+                <i data-lucide="menu" class="w-6 h-6" id="menu-icon"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-[#050505] flex flex-col items-center justify-center gap-8 text-2xl font-serif hidden opacity-0 transition-opacity duration-300">
+        <a href="#about" class="mobile-link hover:text-[#ff6b4a] transition-colors">About</a>
+        <a href="#experience" class="mobile-link hover:text-[#ff6b4a] transition-colors">Experience</a>
+        <a href="#skills" class="mobile-link hover:text-[#ff6b4a] transition-colors">Skills</a>
+        <a href="#contact" class="mobile-link hover:text-[#ff6b4a] transition-colors">Contact</a>
+    </div>
+
+    <!-- --- Floating Elements --- -->
+    <div class="hidden lg:flex fixed left-8 bottom-0 flex-col items-center gap-6 z-40 after:content-[''] after:w-[1px] after:h-24 after:bg-neutral-700">
+        <!-- Using inline SVG for brands as Lucide no longer bundles them -->
+        <a href="#" aria-label="Instagram" class="text-neutral-500 hover:text-[#ff6b4a] hover:-translate-y-1 transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+        </a>
+        <a href="#" aria-label="LinkedIn" class="text-neutral-500 hover:text-[#ff6b4a] hover:-translate-y-1 transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+        </a>
+        <a href="#" aria-label="Facebook" class="text-neutral-500 hover:text-[#ff6b4a] hover:-translate-y-1 transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+    </div>
+
+    <div class="fixed right-6 bottom-6 z-40">
+        <a href="#contact" class="flex items-center justify-center w-14 h-14 bg-[#111] border border-[#222] rounded-full text-white hover:bg-[#ff6b4a] hover:border-[#ff6b4a] transition-all group shadow-lg">
+            <i data-lucide="mail" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+        </a>
+    </div>
+
+    <!-- --- Background Decorative Elements --- -->
+    <div class="absolute top-0 left-0 w-full h-screen overflow-hidden -z-10 pointer-events-none">
+        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[50%] rounded-full bg-[#ff6b4a] blur-[150px] opacity-[0.07]"></div>
+        <div class="absolute top-[30%] right-[-10%] w-[30%] h-[40%] rounded-full bg-[#00e5ff] blur-[150px] opacity-[0.05]"></div>
+    </div>
+
+    <!-- --- HERO SECTION --- -->
+    <section id="home" class="relative min-h-screen flex flex-col items-center justify-center pt-28 pb-10 text-center">
+        <div class="max-w-4xl mx-auto px-6 flex flex-col items-center z-10">
+            
+            <!-- Centered Image -->
+            <div class="relative w-56 h-56 md:w-72 md:h-72 mb-8 mt-10 lg:mt-0">
+                <!-- Abstract decorative rings behind image -->
+                <div class="absolute inset-0 flex justify-center items-center">
+                    <div class="w-[130%] h-[130%] border-[1px] border-white/5 rounded-full absolute animate-[spin_60s_linear_infinite]"></div>
+                    <div class="w-[110%] h-[110%] border-[1px] border-[#00e5ff]/10 rounded-full absolute animate-[spin_40s_linear_infinite_reverse]"></div>
+                </div>
+                <!-- The Image -->
+                <img 
+                    src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1287&auto=format&fit=crop" 
+                    alt="Miko Hardi Putra" 
+                    class="relative z-10 w-full h-full object-cover object-center rounded-full border border-white/10 shadow-[0_0_40px_rgba(255,107,74,0.15)] grayscale-[10%] contrast-110"
+                />
+            </div>
+
+            <!-- Text Below Image -->
+            <span class="text-neutral-500 font-serif italic text-2xl mb-2">Hi, I'm</span>
+            <h1 class="text-5xl md:text-7xl font-bold tracking-tighter text-white leading-[1.1] mb-5">
+                Miko <span class="text-[#ff6b4a] text-glow">Hardi Putra</span>
+            </h1>
+            
+            <h2 class="text-lg md:text-xl text-neutral-400 font-light tracking-wide mb-8 flex items-center gap-4 justify-center">
+                <span class="w-12 h-[1px] bg-gradient-to-r from-transparent to-[#00e5ff]"></span>
+                Information Systems Student
+                <span class="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#00e5ff]"></span>
+            </h2>
+            
+            <p class="text-sm md:text-base text-neutral-400 max-w-lg leading-relaxed mb-10">
+                Based in Jambi, Indonesia. Combining strong administrative organization with technical systems knowledge to optimize processes and deliver structured data solutions.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center gap-6">
+                <a href="#contact" class="relative inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium text-white transition-all bg-[#ff6b4a] rounded-full hover:bg-[#e05638] shadow-[0_0_20px_rgba(255,107,74,0.3)] hover:shadow-[0_0_30px_rgba(255,107,74,0.5)]">
+                    Hire Me
+                </a>
+                <a href="#" class="group flex items-center gap-3 text-sm font-medium text-white hover:text-[#00e5ff] transition-colors pb-1 border-b border-white/20 hover:border-[#00e5ff]">
+                    Download CV <i data-lucide="download" class="w-4 h-4 group-hover:-translate-y-1 transition-transform"></i>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- --- ABOUT SECTION --- -->
+    <section id="about" class="py-24 relative z-10 bg-[#0a0a0c] scroll-fade">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div>
+                <h2 class="text-sm uppercase tracking-[0.2em] text-[#ff6b4a] font-bold mb-4 flex items-center gap-4">
+                    <span class="w-12 h-[1px] bg-[#ff6b4a]"></span> About Me
+                </h2>
+                <h3 class="text-4xl font-serif text-white mb-6">Dedicated to creating organized, efficient systems.</h3>
+                <p class="text-neutral-400 leading-relaxed mb-6">
+                    I am an enthusiastic Information Systems student currently studying at Universitas Dinamika Bangsa. Born in 2004 and residing in Jambi, I have developed a strong foundation in both technical IT concepts and practical administrative data processing.
+                </p>
+                <p class="text-neutral-400 leading-relaxed mb-8">
+                    My approach focuses on diligence, continuous learning, and effective teamwork. Whether managing documentation, analyzing data, or collaborating on independent study projects, I strive for structural excellence and clarity.
+                </p>
+                
+                <div class="grid grid-cols-2 gap-6 pt-6 border-t border-white/10">
+                    <div>
+                        <span class="block text-xs text-neutral-500 uppercase tracking-wider mb-1">Status</span>
+                        <span class="text-white">Student, Unmarried</span>
+                    </div>
+                    <div>
+                        <span class="block text-xs text-neutral-500 uppercase tracking-wider mb-1">Location</span>
+                        <span class="text-white">Jambi, Indonesia</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Visual Element for About -->
+            <div class="relative aspect-square md:aspect-auto md:h-full w-full max-w-md mx-auto md:mx-0 ml-auto border border-white/5 bg-[#111] p-8 flex flex-col justify-center items-center text-center box-glow transition-all duration-500">
+                <div class="absolute top-0 right-0 w-24 h-24 bg-[#00e5ff] blur-[80px] opacity-20"></div>
+                <div class="absolute bottom-0 left-0 w-24 h-24 bg-[#ff6b4a] blur-[80px] opacity-20"></div>
+                
+                <h4 class="text-6xl font-serif text-white mb-4">2024</h4>
+                <p class="text-sm text-neutral-400 uppercase tracking-widest mb-6">Current Focus</p>
+                <p class="text-white/80 max-w-xs text-sm leading-loose">
+                    Expanding my expertise in Information Systems while actively seeking professional experiences to bridge the gap between academic theory and industry practice.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- --- EXPERIENCE & EDUCATION SECTION --- -->
+    <section id="experience" class="py-24 relative z-10 scroll-fade">
+        <div class="max-w-4xl mx-auto px-6 md:px-12">
+            
+            <div class="text-center mb-20">
+                <h2 class="text-sm uppercase tracking-[0.2em] text-[#00e5ff] font-bold mb-4">Journey</h2>
+                <h3 class="text-4xl font-serif text-white">Experience & Education</h3>
+            </div>
+
+            <div class="relative border-l border-white/10 pl-8 md:pl-12 space-y-16">
+                
+                <!-- Experience Item 1 -->
+                <div class="relative group">
+                    <span class="absolute -left-[41px] md:-left-[57px] top-1 w-5 h-5 rounded-full bg-[#111] border-2 border-[#ff6b4a] group-hover:bg-[#ff6b4a] transition-colors flex items-center justify-center"></span>
+                    <div class="flex items-center gap-3 mb-2">
+                        <i data-lucide="briefcase" class="w-4 h-4 text-[#ff6b4a]"></i>
+                        <span class="text-sm font-medium text-[#ff6b4a]">Experience</span>
+                    </div>
+                    <h4 class="text-2xl font-serif text-white mb-1">Independent Study Program</h4>
+                    <p class="text-lg text-neutral-300 mb-3">PT. Vinix Seven Aurum</p>
+                    <p class="text-neutral-500 text-sm leading-relaxed max-w-2xl">
+                        Participated in a comprehensive independent study program, gaining practical industry insights and collaborating with professionals to enhance technical and soft skills.
+                    </p>
+                </div>
+
+                <!-- Experience Item 2 -->
+                <div class="relative group">
+                    <span class="absolute -left-[41px] md:-left-[57px] top-1 w-5 h-5 rounded-full bg-[#111] border-2 border-white/30 group-hover:border-white transition-colors"></span>
+                    <div class="flex items-center gap-3 mb-2">
+                        <i data-lucide="briefcase" class="w-4 h-4 text-neutral-400"></i>
+                        <span class="text-sm font-medium text-neutral-400">Internship</span>
+                    </div>
+                    <h4 class="text-2xl font-serif text-white mb-1">Administrative Intern</h4>
+                    <p class="text-lg text-neutral-300 mb-3">Dinas Perkebunan Kota Jambi</p>
+                    <p class="text-neutral-500 text-sm leading-relaxed max-w-2xl">
+                        Assisted in daily operational activities, documentation, and data administration, applying organizational skills to support department workflows effectively.
+                    </p>
+                </div>
+
+                <!-- Education Background -->
+                <div class="relative group">
+                    <span class="absolute -left-[41px] md:-left-[57px] top-1 w-5 h-5 rounded-full bg-[#111] border-2 border-[#00e5ff] group-hover:bg-[#00e5ff] transition-colors"></span>
+                    <div class="flex items-center gap-3 mb-6">
+                        <i data-lucide="graduation-cap" class="w-4 h-4 text-[#00e5ff]"></i>
+                        <span class="text-sm font-medium text-[#00e5ff]">Education</span>
+                    </div>
+                    
+                    <div class="flex flex-col gap-6">
+                        <div>
+                            <h4 class="text-2xl font-serif text-white mb-1">Sistem Informasi</h4>
+                            <p class="text-lg text-neutral-300 mb-2">Universitas Dinamika Bangsa</p>
+                            <p class="text-neutral-500 text-sm leading-relaxed max-w-2xl">
+                                Pursuing a degree in Information Systems, focusing on the intersection of business processes, application development, and technological solutions.
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-xl font-serif text-neutral-200">SMK Revany Indra Putra Jambi</h4>
+                        </div>
+
+                        <div>
+                            <h4 class="text-lg font-serif text-neutral-300">MTS Laboratorium Jambi</h4>
+                        </div>
+
+                        <div>
+                            <h4 class="text-base font-serif text-neutral-400">SDN 53 Muaro Jambi</h4>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- --- SKILLS SECTION --- -->
+    <section id="skills" class="py-24 relative z-10 bg-[#0a0a0c] scroll-fade">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div>
+                    <h2 class="text-sm uppercase tracking-[0.2em] text-[#ff6b4a] font-bold mb-4 flex items-center gap-4">
+                        <span class="w-12 h-[1px] bg-[#ff6b4a]"></span> Expertise
+                    </h2>
+                    <h3 class="text-4xl font-serif text-white">Professional Skills</h3>
+                </div>
+                <p class="text-neutral-500 max-w-md text-sm md:text-right">
+                    A balanced combination of software development (Laravel & Flutter), technical proficiency in data administration tools, and essential soft skills required for effective teamwork.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Skill: Laravel -->
+                <div class="bg-[#111] border border-white/5 p-8 hover:-translate-y-2 transition-all duration-300 box-glow group">
+                    <div class="w-12 h-12 rounded-full bg-[#ff6b4a]/10 flex items-center justify-center text-[#ff6b4a] mb-6 group-hover:bg-[#ff6b4a] group-hover:text-white transition-colors">
+                        <i data-lucide="code" class="w-5 h-5"></i>
+                    </div>
+                    <h4 class="text-lg text-white font-medium mb-3">Laravel</h4>
+                    <p class="text-sm text-neutral-500 leading-relaxed">
+                        Pengembangan aplikasi web backend yang terstruktur, aman, dan scalable menggunakan framework Laravel (PHP).
+                    </p>
+                </div>
+
+                <!-- Skill: Flutter -->
+                <div class="bg-[#111] border border-white/5 p-8 hover:-translate-y-2 transition-all duration-300 box-glow group">
+                    <div class="w-12 h-12 rounded-full bg-[#00e5ff]/10 flex items-center justify-center text-[#00e5ff] mb-6 group-hover:bg-[#00e5ff] group-hover:text-[#111] transition-colors">
+                        <i data-lucide="smartphone" class="w-5 h-5"></i>
+                    </div>
+                    <h4 class="text-lg text-white font-medium mb-3">Flutter</h4>
+                    <p class="text-sm text-neutral-500 leading-relaxed">
+                        Pembuatan aplikasi mobile lintas platform (iOS & Android) yang responsif dengan UI modern menggunakan Flutter dan Dart.
+                    </p>
+                </div>
+
+                <!-- Skill: Document Admin -->
+                <div class="bg-[#111] border border-white/5 p-8 hover:-translate-y-2 transition-all duration-300 box-glow group">
+                    <div class="w-12 h-12 rounded-full bg-[#ff6b4a]/10 flex items-center justify-center text-[#ff6b4a] mb-6 group-hover:bg-[#ff6b4a] group-hover:text-white transition-colors">
+                        <i data-lucide="file-text" class="w-5 h-5"></i>
+                    </div>
+                    <h4 class="text-lg text-white font-medium mb-3">Document Admin</h4>
+                    <p class="text-sm text-neutral-500 leading-relaxed">
+                        Proficient in Microsoft Word for comprehensive documentation, report generation, and structural administrative tasks.
+                    </p>
+                </div>
+
+                <!-- Skill: Data Processing -->
+                <div class="bg-[#111] border border-white/5 p-8 hover:-translate-y-2 transition-all duration-300 box-glow group">
+                    <div class="w-12 h-12 rounded-full bg-[#00e5ff]/10 flex items-center justify-center text-[#00e5ff] mb-6 group-hover:bg-[#00e5ff] group-hover:text-[#111] transition-colors">
+                        <i data-lucide="database" class="w-5 h-5"></i>
+                    </div>
+                    <h4 class="text-lg text-white font-medium mb-3">Data Processing</h4>
+                    <p class="text-sm text-neutral-500 leading-relaxed">
+                        Capable in Microsoft Excel for data management, spreadsheet analysis, and organizing administrative records efficiently.
+                    </p>
+                </div>
+
+                <!-- Skill: Soft Skills -->
+                <div class="bg-[#111] border border-white/5 p-8 hover:-translate-y-2 transition-all duration-300 box-glow group lg:col-span-2 lg:col-start-2">
+                    <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white mb-6 group-hover:bg-white group-hover:text-[#111] transition-colors">
+                        <i data-lucide="users" class="w-5 h-5"></i>
+                    </div>
+                    <h4 class="text-lg text-white font-medium mb-3">Soft Skills & Workflow</h4>
+                    <p class="text-sm text-neutral-500 leading-relaxed mb-6">
+                        Beyond technical tools, I bring strong interpersonal abilities essential for any professional environment. I value structural integrity in my work and maintain high standards of dedication.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="flex items-center gap-2 text-xs text-neutral-300 bg-white/5 px-3 py-1.5 rounded-full"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-[#ff6b4a]"></i> Teamwork</span>
+                        <span class="flex items-center gap-2 text-xs text-neutral-300 bg-white/5 px-3 py-1.5 rounded-full"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-[#00e5ff]"></i> Discipline</span>
+                        <span class="flex items-center gap-2 text-xs text-neutral-300 bg-white/5 px-3 py-1.5 rounded-full"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-[#ff6b4a]"></i> Perseverance</span>
+                        <span class="flex items-center gap-2 text-xs text-neutral-300 bg-white/5 px-3 py-1.5 rounded-full"><i data-lucide="check-circle" class="w-3.5 h-3.5 text-[#00e5ff]"></i> Diligence</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- --- CONTACT / FOOTER SECTION --- -->
+    <footer id="contact" class="relative z-10 border-t border-white/10 pt-24 pb-12 overflow-hidden scroll-fade">
+        <!-- Footer Glow -->
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-32 bg-[#ff6b4a] blur-[150px] opacity-[0.05] pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center text-center">
+            <h2 class="text-5xl md:text-7xl font-serif text-white mb-6">Let's Work <span class="text-[#00e5ff] italic">Together.</span></h2>
+            <p class="text-neutral-400 max-w-lg mb-10">
+                Currently open for new opportunities, collaborations, and internships. Feel free to reach out for a chat about how I can contribute to your team.
+            </p>
+            
+            <a href="mailto:miko.hardi07@gmail.com" class="group text-2xl md:text-3xl font-medium text-white hover:text-[#ff6b4a] transition-colors flex items-center gap-4 mb-16">
+                miko.hardi07@gmail.com 
+                <i data-lucide="arrow-right" class="w-7 h-7 group-hover:translate-x-2 transition-transform opacity-50 group-hover:opacity-100"></i>
+            </a>
+
+            <div class="w-full flex flex-col md:flex-row justify-between items-center gap-6 pt-8 border-t border-white/10 text-sm text-neutral-500">
+                <p>&copy; 2024 Miko Hardi Putra. All rights reserved.</p>
+                <div class="flex items-center gap-6">
+                    <span class="flex items-center gap-2"><i data-lucide="mail" class="w-3.5 h-3.5"></i> 0852-6710-9854</span>
+                    <span>Perumahan Kembar Lestari 1</span>
+                </div>
+                <div class="flex items-center gap-6 text-white">
+                    <a href="#" aria-label="Instagram" class="hover:text-[#ff6b4a] hover:-translate-y-1 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                    </a>
+                    <a href="#" aria-label="LinkedIn" class="hover:text-[#ff6b4a] hover:-translate-y-1 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                    </a>
+                    <a href="#" aria-label="Facebook" class="hover:text-[#ff6b4a] hover:-translate-y-1 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts for Logic & Animations -->
+    <script>
+        // 1. Initialize Lucide Icons
+        lucide.createIcons();
+
+        // 2. Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-[#050505]/80', 'backdrop-blur-md');
+                navbar.classList.remove('bg-transparent', 'py-6');
+                navbar.classList.add('py-4');
+            } else {
+                navbar.classList.remove('bg-[#050505]/80', 'backdrop-blur-md', 'py-4');
+                navbar.classList.add('bg-transparent', 'py-6');
+            }
+        });
+
+        // 3. Mobile Menu Toggle Logic
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuLinks = document.querySelectorAll('.mobile-link');
+        let isMenuOpen = false;
+
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('hidden');
+                // Small delay to allow display block to apply before changing opacity
+                setTimeout(() => mobileMenu.classList.remove('opacity-0'), 10);
+                document.getElementById('menu-icon').setAttribute('data-lucide', 'x');
+            } else {
+                mobileMenu.classList.add('opacity-0');
+                setTimeout(() => mobileMenu.classList.add('hidden'), 300); // match transition duration
+                document.getElementById('menu-icon').setAttribute('data-lucide', 'menu');
+            }
+            lucide.createIcons(); // re-initialize icon to update from menu to x
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        menuLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // 4. Scroll Fade-in Animation Observer
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -100px 0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Optional: Stop observing once it animated in
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-fade').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
